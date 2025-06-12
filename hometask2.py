@@ -14,7 +14,7 @@ def get_numbers_ticket(min:int, max:int, quantity:int)-> list[int]:
     """   
     if not all(isinstance(arg, int) for arg in [min, max, quantity]):
         return []
-    if min < 1 or max > 1000 or 1 <= quantity  > (max - min ):
+    if min < 1 or max > 1000 or quantity < 1 or quantity  > (max - min ):
         # Invalid input parameters. Please ensure 1 <= min < max <= 1000 and quantity is within the range.
         return []
     else:
