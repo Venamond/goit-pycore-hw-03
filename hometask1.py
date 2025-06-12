@@ -1,10 +1,10 @@
 from datetime import datetime
 from typing import Optional
 
-# Function return the number of days from today to a given date
+
 def get_days_from_today(date: str) -> Optional[int]:
     """
-    Return  the number of days from today to a given date.
+    Function return  the number of days from today to a given date.
 
     Args:
         date (str): Date in 'YYYY-MM-DD' forma.

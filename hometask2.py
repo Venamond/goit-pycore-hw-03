@@ -1,9 +1,9 @@
 import random
 
-# Function retern list of random numbers from range [min, max] with quantity elements
+
 def get_numbers_ticket(min:int, max:int, quantity:int)-> list[int]:
     """
-    Retern list of random numbers from range [min, max] with quantity elements
+    Function retern list of random numbers from range [min, max] with quantity elements
 
     Args:
         min (int): Minimum value of the range, must be at least 1.

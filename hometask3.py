@@ -1,55 +1,30 @@
 import re
 
+
 def normalize_phone(phone_number:str)->str:
+    """
+    Function return  normalize phone numbers in the format +380XXXXXXXXXX if fone number is not correct it returns an empty string
+    
+    Args:
+        phone_number (str): The phone number string in various formats.
+    Returns:
+        str: The normalized phone number in '+380XXXXXXXXX' format,
+             or an empty string if the input number is not valid
+             according to the normalization and validation rules.
+    """
     cleaned_phone = re.sub(r'[^\d+]', '', phone_number)
     if cleaned_phone.startswith('+'):
-        if cleaned_phone.startswith('+38'):
-            normalized_phone = cleaned_phone
-        # Если начинается с '+' и других цифр, предполагаем, что это полный международный номер
-        else:
-            # Для простоты, если есть другой код, оставляем его.
-            # Если нужно жестко приводить к +38, потребуется более сложная логика.
-            # В данном случае, если это "+123...", то так и оставим.
-            # Но если это "+380...", то оно уже покроется первым if.
-            # Важно: В условии сказано "Если международный код отсутствует, функция добавляет код '+38'".
-            # Это значит, если есть '+', но не '+38', то это другой международный номер,
-            # и мы его не трогаем, если только он не является вариантом украинского.
-            # Однако в требованиях нет четкого указания, что делать с номерами,
-            # начинающимися с других международных кодов, кроме украинских.
-            # Исходя из формулировки "Если номер не содержит международного кода,
-            # функция автоматически добавляет код '+38' (для Украины)",
-            # и примера '38050...', сделаем акцент на украинские номера.
-
-            # Для простоты и соответствия "добавляет код '+38' (для Украины)",
-            # если номер начинается с '+', но не с '+38', то считаем, что это уже
-            # международный номер, который *НЕ* украинский, и оставляем как есть,
-            # т.к. "добавлять" +38 к нему не нужно.
-            normalized_phone = cleaned_phone
-    # Если номер не начинается с '+'
+        normalized_phone = cleaned_phone
+    elif cleaned_phone.startswith('380'):
+        normalized_phone = '+' + cleaned_phone
+    elif cleaned_phone.startswith('80'):
+        normalized_phone = '+3' + cleaned_phone 
     else:
-        # Если номер начинается с '380', просто добавляем '+'
-        if cleaned_phone.startswith('380'):
-            normalized_phone = '+' + cleaned_phone
-        # В остальных случаях (например, '050...') добавляем '+38'
-        elif cleaned_phone.startswith('80'):
-            normalized_phone = '+3' + cleaned_phone # Убираем '0' и добавляем '+3'
-        else:
-            normalized_phone = '+38' + cleaned_phone
+        normalized_phone = '+38' + cleaned_phone
+
+    #check if the phone number is in the correct format
+    if len(normalized_phone) != 13 or normalized_phone.count('+') > 1:
+        # wrong phone number format
+        normalized_phone =""
 
     return normalized_phone
-    
-
-raw_numbers = [
-    "067\\t123 4567",
-    "(095) 234-5678\\n",
-    "+380 44 123 4567",
-    "380501234567",
-    "    +38(050)123-32-34"  ,
-    "     0503451234",
-    "(050)8889900",
-    "38050-111-22-22",
-    "38050 111 22 11   ",
-]
-
-sanitized_numbers = [normalize_phone(num) for num in raw_numbers]
-print("Нормалізовані номери телефонів для SMS-розсилки:", sanitized_numbers)

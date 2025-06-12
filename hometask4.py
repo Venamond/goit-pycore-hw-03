@@ -1,9 +1,9 @@
 from datetime import datetime, timedelta
 
-# Function return a list of users whose birthdays occur within the next 7 days, adjusting for leap-year dates and weekend celebrations.
+
 def get_upcoming_birthdays(users:list[dict[str,str]]) -> list[dict[str,str]]:
     """
-    Return a list of users whose birthdays occur within the next 7 days,
+    Function return a list of users whose birthdays occur within the next 7 days,
     adjusting for leap-year dates and weekend celebrations.
 
     Args:
@@ -49,12 +49,6 @@ def get_upcoming_birthdays(users:list[dict[str,str]]) -> list[dict[str,str]]:
             result.append({"name": user["name"],"congratulation_date": congratulation_date.strftime("%Y.%m.%d")})
     return result
 
-users = [
-    {"name": "John Doe", "birthday": "1985.06.17"},
-    {"name": "Jane Smith", "birthday": "1990.06.19"},
-    {"name": "Kevine Alex", "birthday": "2024.02.29"}
-]
-print(get_upcoming_birthdays(users))
                 
                      
 
