@@ -20,4 +20,3 @@ def get_numbers_ticket(min:int, max:int, quantity:int)-> list[int]:
     else:
         # Generate a sorted list of unique random numbers
         return sorted(random.sample(range(min, max + 1), quantity))
-
